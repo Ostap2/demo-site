@@ -78,3 +78,8 @@ body {
   right: 0;
   transform: translateX(100%) translateY(-50%);
 }
+.card p,
+.card h2 {
+  transition: all 0.3s ease-out;
+  opacity: var(--abs-offset);
+}

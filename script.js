@@ -2,13 +2,22 @@ const CARDS = 10;
 const MAX_VISIBILITY = 3;
 
 const createCard = ({ title, content }) => {
-  const card = document.createElement('div');
-  card.className = 'card';
-  card.innerHTML = `
-    <h2>${title}</h2>
-    <p>${content}</p>
-  `;
-  return card;
+    const createCard = ({ title, content }) => {
+        const cardContainer = document.createElement('div');
+        cardContainer.className = 'card-container';
+      
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <h2>${title}</h2>
+          <p>${content}</p>
+        `;
+      
+        cardContainer.appendChild(card);
+      
+        return cardContainer;
+      };
+      
 };
 
 const createCarousel = () => {
