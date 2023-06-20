@@ -36,8 +36,11 @@ const createCarousel = () => {
       const absOffset = Math.abs(active - i) / 3;
       const direction = Math.sign(active - i);
       const cardContainer = card.querySelector('.card-container');
-      cardContainer.style.transform = `rotateY(calc(${offset} * 50deg)) scaleY(calc(1 + ${absOffset} * -0.4)) translateZ(calc(${absOffset} * -30rem)) translateX(calc(${direction} * -5rem))`;
-      cardContainer.style.filter = `blur(calc(${absOffset} * 1rem))`;
+      cardContainer.style.setProperty('--offset', offset);
+      cardContainer.style.setProperty('--abs-offset', absOffset);
+      cardContainer.style.setProperty('--direction', direction);
+      cardContainer.style.transform = `rotateY(calc(var(--offset) * 50deg)) scaleY(calc(1 + var(--abs-offset) * -0.4)) translateZ(calc(var(--abs-offset) * -30rem)) translateX(calc(var(--direction) * -5rem))`;
+      cardContainer.style.filter = `blur(calc(var(--abs-offset) * 1rem))`;
       cardContainer.style.pointerEvents = active === i ? 'auto' : 'none';
       cardContainer.style.opacity = Math.abs(active - i) >= MAX_VISIBILITY ? '0' : '1';
       cardContainer.style.display = Math.abs(active - i) > MAX_VISIBILITY ? 'none' : 'block';
