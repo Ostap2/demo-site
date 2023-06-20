@@ -1,53 +1,72 @@
-import React, {useState} from 'https://cdn.skypack.dev/react';
-import ReactDOM from 'https://cdn.skypack.dev/react-dom';
-import {TiChevronLeftOutline, TiChevronRightOutline} from 'https://cdn.skypack.dev/react-icons/ti';
+import { galleryItems } from './gallery-items.js';
 
-const CARDS = 10;
-const MAX_VISIBILITY = 3;
+const gallery = document.querySelector('.gallery');
+const carouselTrack = document.querySelector('.carousel__track');
+const carouselItems = [];
 
-const Card = ({title, content}) => (
-  <div className='card'>
-    <h2>{title}</h2>
-    <p>{content}</p>
-  </div>
-);
+const createGalleryItem = ({ preview, original, description }) => {
+  const galleryItem = document.createElement('li');
+  galleryItem.classList.add('gallery__item');
 
-const Carousel = ({children}) => {
-  const [active, setActive] = useState(2);
-  const count = React.Children.count(children);
-  
-  return (
-    <div className='carousel'>
-      {active > 0 && <button className='nav left' onClick={() => setActive(i => i - 1)}><TiChevronLeftOutline/></button>}
-      {React.Children.map(children, (child, i) => (
-        <div className='card-container' style={{
-            '--active': i === active ? 1 : 0,
-            '--offset': (active - i) / 3,
-            '--direction': Math.sign(active - i),
-            '--abs-offset': Math.abs(active - i) / 3,
-            'pointer-events': active === i ? 'auto' : 'none',
-            'opacity': Math.abs(active - i) >= MAX_VISIBILITY ? '0' : '1',
-            'display': Math.abs(active - i) > MAX_VISIBILITY ? 'none' : 'block',
-          }}>
-          {child}
-        </div>
-      ))}
-      {active < count - 1 && <button className='nav right' onClick={() => setActive(i => i + 1)}><TiChevronRightOutline/></button>}
-    </div>
-  );
+  const galleryLink = document.createElement('a');
+  galleryLink.classList.add('gallery__link');
+  galleryLink.href = original;
+
+  const galleryImage = document.createElement('img');
+  galleryImage.classList.add('gallery__image');
+  galleryImage.src = preview;
+  galleryImage.alt = description;
+  galleryImage.dataset.source = original;
+
+  galleryLink.appendChild(galleryImage);
+  galleryItem.appendChild(galleryLink);
+
+  return galleryItem;
 };
 
-const App = () => (
-  <div className='app'>
-    <Carousel>
-      {[...new Array(CARDS)].map((_, i) => (
-        <Card title={'Card ' + (i + 1)} content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'/>
-      ))}
-    </Carousel>
-  </div>
-);
+const galleryItemsMarkup = galleryItems.map(createGalleryItem);
+gallery.append(...galleryItemsMarkup);
 
-ReactDOM.render(
-  <App/>,
-  document.body
-);
+galleryItems.forEach((item) => {
+  const carouselItem = document.createElement('div');
+  carouselItem.classList.add('carousel__item');
+
+  const carouselImage = document.createElement('img');
+  carouselImage.src = item.preview;
+  carouselImage.alt = item.description;
+
+  carouselItem.appendChild(carouselImage);
+  carouselItems.push(carouselItem);
+});
+
+carouselTrack.append(...carouselItems);
+
+const carousel = document.querySelector('.carousel');
+const carouselWidth = carousel.clientWidth;
+let currentIndex = 0;
+
+function slideTo(index) {
+  carouselTrack.style.transform = `translateX(-${index * carouselWidth}px)`;
+}
+
+function prevSlide() {
+  currentIndex--;
+  if (currentIndex < 0) {
+    currentIndex = carouselItems.length - 1;
+  }
+  slideTo(currentIndex);
+}
+
+function nextSlide() {
+  currentIndex++;
+  if (currentIndex >= carouselItems.length) {
+    currentIndex = 0;
+  }
+  slideTo(currentIndex);
+}
+
+const leftArrow = document.querySelector('.carousel__arrow--left');
+const rightArrow = document.querySelector('.carousel__arrow--right');
+
+leftArrow.addEventListener('click', prevSlide);
+rightArrow.addEventListener('click', nextSlide);
