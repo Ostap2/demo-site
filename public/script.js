@@ -2,22 +2,19 @@ const CARDS = 10;
 const MAX_VISIBILITY = 3;
 
 const createCard = ({ title, content }) => {
-    const createCard = ({ title, content }) => {
-        const cardContainer = document.createElement('div');
-        cardContainer.className = 'card-container';
-      
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-          <h2>${title}</h2>
-          <p>${content}</p>
-        `;
-      
-        cardContainer.appendChild(card);
-      
-        return cardContainer;
-      };
-      
+  const cardContainer = document.createElement('div');
+  cardContainer.className = 'card-container';
+
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `
+    <h2>${title}</h2>
+    <p>${content}</p>
+  `;
+
+  cardContainer.appendChild(card);
+
+  return cardContainer;
 };
 
 const createCarousel = () => {
@@ -25,15 +22,29 @@ const createCarousel = () => {
   carousel.className = 'carousel';
   const navLeft = document.createElement('button');
   navLeft.className = 'nav left';
-  navLeft.innerHTML = '<svg>...</svg>';
+  navLeft.innerHTML = '&lt;';
   const navRight = document.createElement('button');
   navRight.className = 'nav right';
-  navRight.innerHTML = '<svg>...</svg>';
-  const cards = Array.from({ length: CARDS }, (_, i) =>
+  navRight.innerHTML = '&gt;';
+  
+  // Масив з унікальними текстами для кожної картки
+  const cardContents = [
+    'TXT 1',
+    'TXT 2',
+    'TXT 3',
+    'TXT 4',
+    'TXT 5',
+    'TXT 6',
+    'TXT 7',
+    'TXT 8',
+    'TXT 9',
+    'TXT 10',
+  ];
+
+  const cards = cardContents.map((content, i) =>
     createCard({
       title: 'Card ' + (i + 1),
-      content:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+      content: content,
     })
   );
 
@@ -44,7 +55,7 @@ const createCarousel = () => {
       const offset = (active - i) / 3;
       const absOffset = Math.abs(active - i) / 3;
       const direction = Math.sign(active - i);
-      const cardContainer = card.querySelector('.card-container');
+      const cardContainer = card;
       cardContainer.style.setProperty('--offset', offset);
       cardContainer.style.setProperty('--abs-offset', absOffset);
       cardContainer.style.setProperty('--direction', direction);
@@ -55,6 +66,8 @@ const createCarousel = () => {
       cardContainer.style.display = Math.abs(active - i) > MAX_VISIBILITY ? 'none' : 'block';
     });
   };
+
+  updateCards();
 
   navLeft.addEventListener('click', () => {
     if (active > 0) {
