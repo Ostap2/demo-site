@@ -1,3 +1,4 @@
+
 const CARDS = 10;
 const MAX_VISIBILITY = 3;
 
@@ -26,7 +27,7 @@ const createCarousel = () => {
   const navRight = document.createElement('button');
   navRight.className = 'nav right';
   navRight.innerHTML = '&gt;';
-  
+
   // Масив з унікальними текстами для кожної картки
   const cardContents = [
     'TXT 1',
@@ -65,6 +66,24 @@ const createCarousel = () => {
       cardContainer.style.opacity = Math.abs(active - i) >= MAX_VISIBILITY ? '0' : '1';
       cardContainer.style.display = Math.abs(active - i) > MAX_VISIBILITY ? 'none' : 'block';
     });
+
+    // Перевірка, чи поточна карта є першою або останньою
+    const isFirstCard = active === 0;
+    const isLastCard = active === cards.length - 1;
+
+    // Показати або приховати кнопку прокрутки вліво
+    if (isFirstCard) {
+      navLeft.style.display = 'none';
+    } else {
+      navLeft.style.display = 'block';
+    }
+
+    // Показати або приховати кнопку прокрутки вправо
+    if (isLastCard) {
+      navRight.style.display = 'none';
+    } else {
+      navRight.style.display = 'block';
+    }
   };
 
   updateCards();
