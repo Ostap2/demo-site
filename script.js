@@ -1,6 +1,7 @@
 
 const CARDS = 10;
 const MAX_VISIBILITY = 3;
+const ANIMATION_DURATION = 300;
 
 const createCard = ({ title, content }) => {
   const cardContainer = document.createElement('div');
@@ -28,7 +29,7 @@ const createCarousel = () => {
   navRight.className = 'nav right';
   navRight.innerHTML = '&gt;';
 
-  // Масив з унікальними текстами для кожної картки
+
   const cardContents = [
     'TXT 1',
     'TXT 2',
@@ -67,22 +68,26 @@ const createCarousel = () => {
       cardContainer.style.display = Math.abs(active - i) > MAX_VISIBILITY ? 'none' : 'block';
     });
 
-    // Перевірка, чи поточна карта є першою або останньою
+
     const isFirstCard = active === 0;
     const isLastCard = active === cards.length - 1;
 
-    // Показати або приховати кнопку прокрутки вліво
+
     if (isFirstCard) {
-      navLeft.style.display = 'none';
+      navLeft.style.transition = `opacity ${ANIMATION_DURATION}ms ease-out`;
+      navLeft.style.opacity = '0';
     } else {
-      navLeft.style.display = 'block';
+      navLeft.style.transition = `opacity ${ANIMATION_DURATION}ms ease-out`;
+      navLeft.style.opacity = '1';
     }
 
-    // Показати або приховати кнопку прокрутки вправо
+
     if (isLastCard) {
-      navRight.style.display = 'none';
+      navRight.style.transition = `opacity ${ANIMATION_DURATION}ms ease-out`;
+      navRight.style.opacity = '0';
     } else {
-      navRight.style.display = 'block';
+      navRight.style.transition = `opacity ${ANIMATION_DURATION}ms ease-out`;
+      navRight.style.opacity = '1';
     }
   };
 
