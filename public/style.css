@@ -1,7 +1,14 @@
 
-body {
-  width: 100vw;
-  height: 100vh;
+html, body {
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.carousel-container {
+  height: 750px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,11 +16,6 @@ body {
   background-image: linear-gradient(45deg, #8B5CF6, #EC4899);
   font-family: 'Montserrat', sans-serif;
 }
-
-* {
-  box-sizing: border-box;
-}
-
 .carousel {
   position: relative;
   width: 23rem;
@@ -90,4 +92,102 @@ body {
 
 .card code {
   color: #1F2937;
+}
+.navigation {
+  width: 100%;
+  height: 50px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  background-image: linear-gradient(45deg, #696969, black);
+}
+
+.nav-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  height: 100%; 
+}
+.nav-li {
+  display: inline-block;
+  margin-right: 80px;
+  text-decoration: none; 
+  border-radius: 20px;
+  width: 90px;
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  height: 30px;
+}
+
+.nav-li:last-child {
+  margin-right: 0;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: aliceblue; 
+}
+.nav-link:hover {
+  color: #FF8C00;
+  outline: 2px solid #FF8C00;
+  border-radius: 20px;
+  width: 90px;
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  height: 30px;
+}
+
+.nav-btn-left {
+height: 30px;
+width: 90px;
+display: flex;
+align-items: center; 
+justify-content: center;
+margin-left: 90px;
+}
+.nav-btn-rifht {
+  margin-right: 20px;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.nav-btn {
+  background: none;
+  border: none;
+  color: white;
+}
+.nav-btn:hover {
+  background: none;
+  color: #FF8C00;
+}
+.profil {
+  border-radius: 100%;
+  height: 40px;
+  width: 40px;
+  background: none;
+  border: none;
+}
+
+.nav-btn-rifht:hover {
+  border-radius: 100%;
+  height: 40px;
+  width: 40px;
+  color: orange;
+  outline: 2px solid orange; 
+}
+
+.nav-btn-rifht:hover svg {
+  fill: orange; 
+}
+.icon {
+  fill: #fff;
+}
+.profile {
+  width: 120px;
 }

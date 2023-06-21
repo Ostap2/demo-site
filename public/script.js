@@ -114,3 +114,10 @@ const createCarousel = () => {
 
 const app = document.getElementById('app');
 app.appendChild(createCarousel());
+
+
+
+window.addEventListener('load', function() {
+  animateBubbles();
+});
+
