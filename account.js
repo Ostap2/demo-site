@@ -38,6 +38,9 @@ function registerAccount(email, username) {
   const account = { email, username };
   localStorage.setItem('account', JSON.stringify(account));
 
+  // Виведення повідомлення про успішну реєстрацію
+  showMessage('Дякуємо за реєстрацію!');
+  
   // Ваш код для реєстрації облікового запису
   console.log('Аккаунт зареєстровано успішно!');
   console.log('Електронна пошта: ' + email);
@@ -47,6 +50,10 @@ function registerAccount(email, username) {
 // Функція входу в систему
 function login(email, password) {
   // Ваш код для входу в систему
+
+  // Виведення повідомлення про успішний вхід в аккаунт
+  showMessage('Успішний вхід в аккаунт!');
+
   console.log('Успішний вхід в систему!');
   console.log('Електронна пошта: ' + email);
   console.log('Пароль: ' + password);
@@ -54,14 +61,22 @@ function login(email, password) {
 
 // Перевірка наявності збереженого аккаунта при завантаженні сторінки
 document.addEventListener('DOMContentLoaded', function() {
-  const savedAccount = localStorage.getItem('account');
-  if (savedAccount) {
-    const account = JSON.parse(savedAccount);
-    const { email, username } = account;
+  const account = localStorage.getItem('account');
+  if (account) {
+    const { email, username } = JSON.parse(account);
     nickInfo.textContent = username;
     emailInfo.textContent = email;
-    console.log('Знайдено збережений аккаунт:');
-    console.log('Електронна пошта: ' + email);
-    console.log('Нікнейм: ' + username);
   }
 });
+
+// Функція виведення повідомлення
+function showMessage(message) {
+  const messageContainer = document.createElement('div');
+  messageContainer.classList.add('message');
+  messageContainer.textContent = message;
+  document.body.appendChild(messageContainer);
+
+  setTimeout(function() {
+    messageContainer.remove();
+  }, 3000);
+}
