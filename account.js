@@ -1,8 +1,10 @@
 // Підключення елементів з HTML
 const signupForm = document.querySelector('.signup form');
-const loginForm = document.querySelector('.login-form');
+const loginForm = document.querySelector('.login form');
+const profileSection = document.querySelector('.profile');
 const nickInfo = document.getElementById('nick-info');
-const emailInfo = document.getElementById('Email-info');
+const emailInfo = document.getElementById('email-info');
+const logoutButton = document.getElementById('logout-btn');
 
 // Обробка події реєстрації
 signupForm.addEventListener('submit', function(event) {
@@ -28,6 +30,11 @@ loginForm.addEventListener('submit', function(event) {
   login(email, password);
 });
 
+// Обробка події виходу з аккаунта
+logoutButton.addEventListener('click', function() {
+  logout();
+});
+
 // Функція реєстрації облікового запису
 function registerAccount(email, username) {
   // Зміна текстового вмісту елементів профілю
@@ -39,35 +46,50 @@ function registerAccount(email, username) {
   localStorage.setItem('account', JSON.stringify(account));
 
   // Виведення повідомлення про успішну реєстрацію
-  showMessage('Дякуємо за реєстрацію!');
+  showMessage('Аккаунт успішно створено');
   
   // Ваш код для реєстрації облікового запису
   console.log('Аккаунт зареєстровано успішно!');
   console.log('Електронна пошта: ' + email);
   console.log('Нікнейм: ' + username);
+
+  // Показувати секцію профілю після реєстрації
+  profileSection.style.display = 'block';
 }
 
 // Функція входу в систему
 function login(email, password) {
   // Ваш код для входу в систему
-
-  // Виведення повідомлення про успішний вхід в аккаунт
-  showMessage('Успішний вхід в аккаунт!');
-
-  console.log('Успішний вхід в систему!');
+  console.log('Успішний вхід в аккаунт!');
   console.log('Електронна пошта: ' + email);
   console.log('Пароль: ' + password);
+
+  // Збереження аккаунта в localStorage
+  const account = { email };
+  localStorage.setItem('account', JSON.stringify(account));
+
+  // Виведення повідомлення про успішний вхід
+  showMessage('Успішний вхід в аккаунт!');
+
+  // Показувати секцію профілю після входу
+  profileSection.style.display = 'block';
 }
 
-// Перевірка наявності збереженого аккаунта при завантаженні сторінки
-document.addEventListener('DOMContentLoaded', function() {
-  const account = localStorage.getItem('account');
-  if (account) {
-    const { email, username } = JSON.parse(account);
-    nickInfo.textContent = username;
-    emailInfo.textContent = email;
-  }
-});
+// Функція виходу з аккаунта
+function logout() {
+  // Видалення аккаунта з localStorage
+  localStorage.removeItem('account');
+
+  // Очищення текстового вмісту елементів профілю
+  nickInfo.textContent = '';
+  emailInfo.textContent = '';
+
+  // Приховування секції профілю після виходу
+  profileSection.style.display = 'none';
+
+  // Виведення повідомлення про успішний вихід
+  showMessage('Ви вийшли з аккаунта');
+}
 
 // Функція виведення повідомлення
 function showMessage(message) {
