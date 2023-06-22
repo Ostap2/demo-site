@@ -62,12 +62,14 @@
     </div>
 
     <div class="login">
-      <form class="login-form">
+      <form class="login-form" id="login-form">
+        
         <label for="chk" aria-hidden="true" class="label-modal">Login</label>
         <input type="email" name="email" placeholder="Email" required="" class="input-modal">
         <input type="password" name="pswd" placeholder="Password" required="" class="input-modal">
         <button class="modal-btn-sign" >Login</button>
       </form>
+      <p>Login не працює</p>
     </div>
 </div>
 </div>
@@ -79,15 +81,36 @@
 
 <div class="backdropp is-hiddenn" modal>
   <div class="main">
-    <h1 id="nick-info">Nick</h1>
-    <p id="Email-info">Email</p>
-    <button id="logout-btn">Leave</button>
+    <div class="avatar-container-position" id="avatar-container">
+      <img id="avatar" src="avatars/avatar1.jpg" alt="Avatar">
+    </div>
+    <h1 class="title-profile" id="nick-info">Nick</h1>
+    <p class="paragraf" id="Email-info">Email</p>
+    <div class="container-position">
+    <button class="leave-btn container-position" id="logout-btn"><h1 >Leave</h1></button>
+  </div>
+    
+    
+    <!-- Модальне вікно -->
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <h2>Виберіть аватарку</h2>
+        <div id="avatar-gallery">
+          <img class="avatar-option" src="avatars/avatar2.jpg" alt="Avatar 2">
+          <img class="avatar-option" src="avatars/avatar3.jpg" alt="Avatar 3">
+          <img class="avatar-option" src="avatars/avatar1.jpg" alt="Avatar 4">
+        </div>
+        <input type="file" id="avatar-upload" accept="image/*">
+        <button id="modal-close">Закрити</button>
+      </div>
+    </div>
+    
+    
   </div>
   </div>
-
-
   <script src="./script.js"></script>
   <script src="./modal.js"></script>
   <script src="./account.js"></script>
+  <script src="./host.js"></script>
 </body>
 </html>
